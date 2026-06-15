@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameFable.online - 100 Free Gaming Tools | Fortnite, Roblox, Minecraft</title>
+    <meta name="description" content="100+ free gaming calculators, generators & tools for Fortnite, Roblox, Minecraft, Valorant & more. No login required. Optimised for USA & EU players.">
+    <meta name="keywords" content="Fortnite calculator, Roblox tools, Minecraft generator, gaming tools, KD calculator, free gaming utilities">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-pink: #ff006e;
+            --neon-green: #39ff14;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(20, 20, 35, 0.8);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 3D Canvas Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(188, 19, 254, 0.8)); }
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #aaa;
+            margin-bottom: 40px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: #fff;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 50px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 60px;
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #888;
+            margin-bottom: 60px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 20px 60px rgba(0, 243, 255, 0.2);
+        }
+
+        .category-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+
+        .category-card p {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tool-count {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: rgba(20, 20, 35, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::after {
+            content: '→';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: var(--neon-blue);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            background: rgba(30, 30, 50, 0.8);
+            border-color: var(--neon-blue);
+            transform: translateX(10px);
+        }
+
+        .tool-card:hover::after {
+            opacity: 1;
+            right: 15px;
+        }
+
+        .tool-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .tool-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 10px;
+            font-size: 12px;
+            color: var(--neon-blue);
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+
+        /* Featured Tool Demo */
+        .featured-tool {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, transparent, rgba(0, 243, 255, 0.05), transparent);
+        }
+
+        .tool-demo {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .tool-demo h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--neon-blue);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .input-group input {
+            padding: 15px 25px;
+            font-size: 18px;
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            width: 200px;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .result-box {
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            border: 1px solid var(--neon-blue);
+            margin-top: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 50px 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        .social-share {
+            margin: 30px 0;
+        }
+
+        .social-share button {
+            margin: 5px;
+            padding: 10px 20px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .social-share button:hover {
+            background: var(--neon-blue);
+            color: #000;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 42px; }
+            .hero p { font-size: 18px; }
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .stats-bar { flex-direction: column; gap: 20px; }
+            .categories, .tools-section { padding: 50px 20px; }
+            .category-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--neon-blue);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Particle Effect */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-text">LOADING GAMEFABLE...</div>
+    </div>
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">GAMEFABLE</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#fortnite">Fortnite</a></li>
+            <li><a href="#roblox">Roblox</a></li>
+            <li><a href="#minecraft">Minecraft</a></li>
+            <li><a href="#fps">FPS Games</a></li>
+            <li><a href="#viral">Viral</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>100 FREE GAMING TOOLS</h1>
+        <p>Calculate, generate & optimise your gameplay. Zero login. Zero ads. Built for USA & EU gamers. Powered by 3D technology.</p>
+        <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="scrollToTools()">Explore Tools</button>
+            <button class="btn btn-secondary" onclick="showRandomTool()">Random Tool</button>
+        </div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="stat-tools">100</div>
+                <div class="stat-label">Free Tools</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Login Required</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat-users">50K+</div>
+                <div class="stat-label">Monthly Users</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2 class="section-title">Choose Your Game</h2>
+        <p class="section-subtitle">Select a category to explore specialised tools</p>
+        <div class="category-grid">
+            <div class="category-card" onclick="showCategory('fortnite')">
+                <div class="category-icon">🎯</div>
+                <h3>Fortnite Tools</h3>
+                <p>K/D calculators, XP trackers, sensitivity converters, skin checkers & more. Highest CPC tools for competitive players.</p>
+                <span class="tool-count">20 Tools</span>
+            </div>
+            <div class="category-card" onclick="showCategory('roblox')">
+                <div class="category-icon">🧱</div>
+                <h3>Roblox Tools</h3>
+                <p>Robux calculators, avatar makers, username checkers, trading tools & game development utilities.</p>
+                <span class="tool-count">20 Tools</span>
+            </div>
+            <div class="category-card" onclick="showCategory('minecraft')">
+                <div class="category-icon">⛏️</div>
+                <h3>Minecraft Tools</h3>
+                <p>Seed finders, crafting calculators, enchantment tools, server checkers & redstone utilities.</p>
+                <span class="tool-count">20 Tools</span>
+            </div>
+            <div class="category-card" onclick="showCategory('fps')">
+                <div class="category-icon">🔫</div>
+                <h3>Valorant / CoD / Apex</h3>
+                <p>Rank calculators, crosshair generators, damage stats, loadout builders & economy tools.</p>
+                <span class="tool-count">20 Tools</span>
+            </div>
+            <div class="category-card" onclick="showCategory('viral')">
+                <div class="category-icon">🎲</div>
+                <h3>Viral Simulators</h3>
+                <p>Loot box simulators, gacha pullers, case openers, pack simulators & name generators.</p>
+                <span class="tool-count">20 Tools</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tool: Fortnite K/D Calculator -->
+    <section class="featured-tool" id="demo">
+        <div class="tool-demo">
+            <h2>⚡ Fortnite K/D Calculator</h2>
+            <p style="color: #888; margin-bottom: 30px;">Calculate your Kill/Death ratio instantly. Try it now!</p>
+            <div class="input-group">
+                <input type="number" id="kills" placeholder="Total Kills" min="0">
+                <input type="number" id="deaths" placeholder="Total Deaths" min="1">
+                <button class="btn btn-primary" onclick="calculateKD()">Calculate K/D</button>
+            </div>
+            <div class="result-box" id="kd-result">
+                Enter your stats above
+            </div>
+            <div style="margin-top: 20px; font-size: 14px; color: #666;">
+                <span class="tool-tag">Free</span>
+                <span class="tool-tag">No Login</span>
+                <span class="tool-tag">Instant</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Display Section -->
+    <section class="tools-section" id="tools-container">
+        <h2 class="section-title" id="tools-title">All Gaming Tools</h2>
+        <div class="tools-grid" id="tools-grid">
+            <!-- Tools will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo" style="margin-bottom: 20px;">GAMEFABLE</div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#contact">Contact</a>
+                <a href="#sitemap">Sitemap</a>
+            </div>
+            <div class="social-share">
+                <button onclick="shareTwitter()">Share on Twitter</button>
+                <button onclick="shareReddit()">Share on Reddit</button>
+                <button onclick="copyLink()">Copy Link</button>
+            </div>
+            <p style="color: #555; font-size: 14px;">
+                © 2026 GameFable.online | 100% Free Gaming Tools | Optimised for USA & EU<br>
+                Not affiliated with Epic Games, Roblox Corporation, Mojang, Riot Games, or Activision.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== THREE.JS 3D BACKGROUND =====
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Create floating gaming icons (cubes with different colors)
+        const geometries = [];
+        const materials = [];
+        const meshes = [];
+
+        const colors = [0x00f3ff, 0xbc13fe, 0xff006e, 0x39ff14, 0xffd700];
+
+        for (let i = 0; i < 50; i++) {
+            const geometry = new THREE.BoxGeometry(
+                Math.random() * 2 + 0.5,
+                Math.random() * 2 + 0.5,
+                Math.random() * 2 + 0.5
+            );
+            const material = new THREE.MeshBasicMaterial({
+                color: colors[Math.floor(Math.random() * colors.length)],
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            mesh.position.x = (Math.random() - 0.5) * 100;
+            mesh.position.y = (Math.random() - 0.5) * 100;
+            mesh.position.z = (Math.random() - 0.5) * 50;
+            
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+            
+            scene.add(mesh);
+            meshes.push(mesh);
+        }
+
+        // Add particles
+        const particleGeometry = new THREE.BufferGeometry();
+        const particleCount = 1000;
+        const posArray = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 100;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.1,
+            color: 0x00f3ff,
+            transparent: true,
+            opacity: 0.6
+        });
+        const particlesMesh = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 30;
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            meshes.forEach((mesh, i) => {
+                mesh.rotation.x += 0.005;
+                mesh.rotation.y += 0.005;
+                mesh.position.y += Math.sin(Date.now() * 0.001 + i) * 0.02;
+            });
+
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+
+            camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 5 - camera.position.y) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ===== TOOLS DATA =====
+        const tools = {
+            fortnite: [
+                { name: "K/D Calculator", desc: "Calculate your Kill/Death ratio", tags: ["Calculator", "Stats"] },
+                { name: "XP Calculator", desc: "Battle Pass XP tracker", tags: ["Calculator", "XP"] },
+                { name: "Damage Calculator", desc: "Weapon damage stats", tags: ["Calculator", "Weapon"] },
+                { name: "Ping Checker", desc: "Server latency test", tags: ["Checker", "Network"] },
+                { name: "Name Generator", desc: "Pro username creator", tags: ["Generator", "Username"] },
+                { name: "Map Code Generator", desc: "Creative map codes", tags: ["Generator", "Creative"] },
+                { name: "Skin Rarity Checker", desc: "Skin value estimator", tags: ["Checker", "Skin"] },
+                { name: "V-Bucks Calculator", desc: "V-Bucks to USD", tags: ["Calculator", "Currency"] },
+                { name: "Stats Tracker", desc: "Lifetime stats check", tags: ["Tracker", "Stats"] },
+                { name: "Crosshair Generator", desc: "Pro crosshair codes", tags: ["Generator", "Crosshair"] },
+                { name: "Sensitivity Converter", desc: "DPI to Fortnite sens", tags: ["Converter", "Settings"] },
+                { name: "Tier List Maker", desc: "Weapon tier lists", tags: ["Maker", "Tier"] },
+                { name: "Drop Spot Picker", desc: "Best landing spots", tags: ["Picker", "Map"] },
+                { name: "Challenge Tracker", desc: "Weekly challenges", tags: ["Tracker", "Challenge"] },
+                { name: "Crown Wins Counter", desc: "Victory crown calc", tags: ["Calculator", "Crown"] },
+                { name: "FPS Booster", desc: "FPS optimisation tips", tags: ["Tool", "FPS"] },
+                { name: "Account Value Calc", desc: "Account price estimator", tags: ["Calculator", "Value"] },
+                { name: "Random Loadout", desc: "Random weapon loadout", tags: ["Generator", "Loadout"] },
+                { name: "2FA Status Checker", desc: "Security check", tags: ["Checker", "Security"] },
+                { name: "Tournament Prize Calc", desc: "FNCS prize pool", tags: ["Calculator", "Tournament"] }
+            ],
+            roblox: [
+                { name: "Robux Calculator", desc: "Robux to USD price", tags: ["Calculator", "Currency"] },
+                { name: "Username Checker", desc: "Availability check", tags: ["Checker", "Username"] },
+                { name: "RAP Calculator", desc: "Recent Average Price", tags: ["Calculator", "Trading"] },
+                { name: "Game ID Finder", desc: "Place ID lookup", tags: ["Finder", "ID"] },
+                { name: "Avatar Creator", desc: "3D avatar maker", tags: ["Creator", "Avatar"] },
+                { name: "Group Funds Calc", desc: "Group payout tool", tags: ["Calculator", "Group"] },
+                { name: "Game Pass Value", desc: "Pass value check", tags: ["Calculator", "Pass"] },
+                { name: "DevEx Calculator", desc: "Developer exchange", tags: ["Calculator", "DevEx"] },
+                { name: "Server Size Calc", desc: "Max players tool", tags: ["Calculator", "Server"] },
+                { name: "Limited Item Tracker", desc: "Limiteds price track", tags: ["Tracker", "Limited"] },
+                { name: "BC Premium Calc", desc: "Membership calculator", tags: ["Calculator", "Premium"] },
+                { name: "CPS Test", desc: "Clicks per second", tags: ["Test", "CPS"] },
+                { name: "Font Generator", desc: "Cool fonts", tags: ["Generator", "Font"] },
+                { name: "Bio Generator", desc: "Profile bio maker", tags: ["Generator", "Bio"] },
+                { name: "Thumbnail Maker", desc: "Game thumbnail tool", tags: ["Maker", "Thumbnail"] },
+                { name: "Script Obfuscator", desc: "Lua obfuscator", tags: ["Tool", "Script"] },
+                { name: "Server Hop Tracker", desc: "Server finder", tags: ["Tracker", "Server"] },
+                { name: "Trade Value Calc", desc: "Trading value tool", tags: ["Calculator", "Trade"] },
+                { name: "Badge Checker", desc: "Badge completion", tags: ["Checker", "Badge"] },
+                { name: "Outfit Creator", desc: "Character outfit tool", tags: ["Creator", "Outfit"] }
+            ],
+            minecraft: [
+                { name: "Seed Finder", desc: "Best seed generator", tags: ["Finder", "Seed"] },
+                { name: "XP Calculator", desc: "Level to XP calc", tags: ["Calculator", "XP"] },
+                { name: "Crafting Calculator", desc: "Recipe calculator", tags: ["Calculator", "Crafting"] },
+                { name: "Enchantment Calc", desc: "Enchant cost tool", tags: ["Calculator", "Enchant"] },
+                { name: "Brewing Calculator", desc: "Potion recipe tool", tags: ["Calculator", "Potion"] },
+                { name: "Block ID List", desc: "Block ID database", tags: ["List", "Block"] },
+                { name: "Server Status", desc: "Server online check", tags: ["Checker", "Server"] },
+                { name: "Skin Editor", desc: "Skin customisation", tags: ["Editor", "Skin"] },
+                { name: "Command Generator", desc: "/summon command tool", tags: ["Generator", "Command"] },
+                { name: "FPS Calculator", desc: "FPS estimator", tags: ["Calculator", "FPS"] },
+                { name: "Village Finder", desc: "Structure locator", tags: ["Finder", "Structure"] },
+                { name: "Portal Calculator", desc: "Nether coordinates", tags: ["Calculator", "Portal"] },
+                { name: "Beacon Range Calc", desc: "Beacon effect tool", tags: ["Calculator", "Beacon"] },
+                { name: "Anvil Cost Calc", desc: "Repair cost tool", tags: ["Calculator", "Anvil"] },
+                { name: "Mob Spawn Calc", desc: "Spawn rate tool", tags: ["Calculator", "Mob"] },
+                { name: "Redstone Calculator", desc: "Tick delay calc", tags: ["Calculator", "Redstone"] },
+                { name: "Shulker Box Calc", desc: "Storage calculator", tags: ["Calculator", "Storage"] },
+                { name: "NameMC Checker", desc: "Username check", tags: ["Checker", "Username"] },
+                { name: "Server Ping Checker", desc: "Ping test tool", tags: ["Checker", "Ping"] },
+                { name: "Datapack Generator", desc: "Custom datapack", tags: ["Generator", "Datapack"] }
+            ],
+            fps: [
+                { name: "RR Calculator", desc: "Rank Rating calc", tags: ["Calculator", "Rank"] },
+                { name: "Crosshair Generator", desc: "Pro crosshair codes", tags: ["Generator", "Crosshair"] },
+                { name: "Agent Picker", desc: "Random agent select", tags: ["Picker", "Agent"] },
+                { name: "Spike Timer", desc: "Spike plant timer", tags: ["Timer", "Spike"] },
+                { name: "Warzone Damage Calc", desc: "Gun damage stats", tags: ["Calculator", "Damage"] },
+                { name: "MW3 Loadout Gen", desc: "Best loadout builder", tags: ["Generator", "Loadout"] },
+                { name: "Zombies Round Calc", desc: "Round survival tool", tags: ["Calculator", "Zombies"] },
+                { name: "Apex Damage Calc", desc: "Legend damage tool", tags: ["Calculator", "Damage"] },
+                { name: "Apex Drop Spot Map", desc: "Landing spot picker", tags: ["Picker", "Map"] },
+                { name: "Apex Rank Calculator", desc: "RP to rank tool", tags: ["Calculator", "Rank"] },
+                { name: "Skin Value Calc", desc: "Skin bundle price", tags: ["Calculator", "Skin"] },
+                { name: "Weapon TTK Calc", desc: "Time to Kill calc", tags: ["Calculator", "TTK"] },
+                { name: "Premier Team Maker", desc: "Team name generator", tags: ["Generator", "Team"] },
+                { name: "Character Stats", desc: "Hitbox size check", tags: ["Checker", "Stats"] },
+                { name: "Best Attachments", desc: "Meta attachments", tags: ["Tool", "Attachments"] },
+                { name: "Smoke Lineup Gen", desc: "Map lineups tool", tags: ["Generator", "Lineup"] },
+                { name: "Zombies Crafting", desc: "Crafting table tool", tags: ["Tool", "Crafting"] },
+                { name: "Legend Picker", desc: "Random legend tool", tags: ["Picker", "Legend"] },
+                { name: "Economy Calculator", desc: "Buy round calculator", tags: ["Calculator", "Economy"] },
+                { name: "Rank Progress Tracker", desc: "Rank up calculator", tags: ["Tracker", "Rank"] }
+            ],
+            viral: [
+                { name: "Loot Box Simulator", desc: "Free loot box opener", tags: ["Simulator", "Loot"] },
+                { name: "Gacha Pull Simulator", desc: "Robux gacha sim", tags: ["Simulator", "Gacha"] },
+                { name: "Ore Mining Simulator", desc: "Virtual mining tool", tags: ["Simulator", "Mining"] },
+                { name: "CSGO Case Simulator", desc: "Case opening sim", tags: ["Simulator", "Case"] },
+                { name: "Item Shop Tracker", desc: "Daily shop history", tags: ["Tracker", "Shop"] },
+                { name: "Limiteds Price Tracker", desc: "Live price graph", tags: ["Tracker", "Price"] },
+                { name: "Breeding Calculator", desc: "Animal breeding tool", tags: ["Calculator", "Breeding"] },
+                { name: "Bundle Release Tracker", desc: "Skin release date", tags: ["Tracker", "Bundle"] },
+                { name: "Creative Code Generator", desc: "Random code tool", tags: ["Generator", "Code"] },
+                { name: "Game Pass Idea Gen", desc: "Monetisation ideas", tags: ["Generator", "Ideas"] },
+                { name: "Parkour Difficulty Tester", desc: "Parkour rating tool", tags: ["Tester", "Parkour"] },
+                { name: "Apex Pack Simulator", desc: "Apex pack opener", tags: ["Simulator", "Pack"] },
+                { name: "Loadout Randomizer", desc: "Random class tool", tags: ["Randomizer", "Loadout"] },
+                { name: "Voice Line Generator", desc: "Agent voice quotes", tags: ["Generator", "Voice"] },
+                { name: "Emote Rarity Checker", desc: "Emote value tool", tags: ["Checker", "Emote"] },
+                { name: "Game Growth Calc", desc: "Player count predictor", tags: ["Calculator", "Growth"] },
+                { name: "Achievement Tracker", desc: "100% completion tool", tags: ["Tracker", "Achievement"] },
+                { name: "Spray Pattern Trainer", desc: "Recoil practice", tags: ["Trainer", "Recoil"] },
+                { name: "XP Glitch Tracker", desc: "XP map finder", tags: ["Tracker", "XP"] },
+                { name: "Universal Name Generator", desc: "All games username", tags: ["Generator", "Username"] }
+            ]
+        };
+
+        // ===== FUNCTIONS =====
+        
+        function calculateKD() {
+            const kills = parseFloat(document.getElementById('kills').value) || 0;
+            const deaths = parseFloat(document.getElementById('deaths').value) || 1;
+            const kd = (kills / deaths).toFixed(2);
+            
+            let rank = "";
+            let color = "";
+            
+            if (kd >= 5) { rank = "GOD TIER"; color = "#ff006e"; }
+            else if (kd >= 3) { rank = "PRO"; color = "#bc13fe"; }
+            else if (kd >= 2) { rank = "GOOD"; color = "#00f3ff"; }
+            else if (kd >= 1) { rank = "AVERAGE"; color = "#39ff14"; }
+            else { rank = "NEEDS PRACTICE"; color = "#ffaa00"; }
+            
+            document.getElementById('kd-result').innerHTML = `
+                <div>
+                    <div style="font-size: 64px; color: ${color}; text-shadow: 0 0 30px ${color};">${kd}</div>
+                    <div style="font-size: 18px; color: ${color}; margin-top: 10px;">${rank}</div>
+                </div>
+            `;
+        }
+
+        function showCategory(category) {
+            const grid = document.getElementById('tools-grid');
+            const title = document.getElementById('tools-title');
+            const container = document.getElementById('tools-container');
+            
+            const categoryNames = {
+                fortnite: 'Fortnite Tools',
+                roblox: 'Roblox Tools',
+                minecraft: 'Minecraft Tools',
+                fps: 'Valorant / CoD / Apex Tools',
+                viral: 'Viral Simulator Tools'
+            };
+            
+            title.textContent = categoryNames[category];
+            grid.innerHTML = '';
+            
+            tools[category].forEach((tool, index) => {
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.style.animationDelay = `${index * 0.05}s`;
+                card.innerHTML = `
+                    <h4>${tool.name}</h4>
+                    <p>${tool.desc}</p>
+                    ${tool.tags.map(tag => `<span class="tool-tag">${tag}</span>`).join('')}
+                `;
+                card.onclick = () => alert(`Opening ${tool.name}...\n\nIn production, this would navigate to: gamefable.online/${category}-${tool.name.toLowerCase().replace(/ /g, '-')}`);
+                grid.appendChild(card);
+            });
+            
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTools() {
+            document.getElementById('tools-container').scrollIntoView({ behavior: 'smooth' });
+            showAllTools();
+        }
+
+        function showAllTools() {
+            const grid = document.getElementById('tools-grid');
+            const title = document.getElementById('tools-title');
+            title.textContent = 'All 100 Gaming Tools';
+            grid.innerHTML = '';
+            
+            let delay = 0;
+            Object.keys(tools).forEach(category => {
+                tools[category].forEach(tool => {
+                    const card = document.createElement('div');
+                    card.className = 'tool-card';
+                    card.innerHTML = `
+                        <h4>${tool.name}</h4>
+                        <p>${tool.desc}</p>
+                        <span class="tool-tag" style="background: rgba(188, 19, 254, 0.2); color: #bc13fe;">${category}</span>
+                        ${tool.tags.map(tag => `<span class="tool-tag">${tag}</span>`).join('')}
+                    `;
+                    grid.appendChild(card);
+                });
+            });
+        }
+
+        function showRandomTool() {
+            const allTools = [];
+            Object.keys(tools).forEach(cat => {
+                tools[cat].forEach(tool => allTools.push({...tool, category: cat}));
+            });
+            const random = allTools[Math.floor(Math.random() * allTools.length)];
+            alert(`Random Tool: ${random.name}\nCategory: ${random.category}\n\n${random.desc}`);
+        }
+
+        function shareTwitter() {
+            const text = "🎮 Just found 100 FREE Gaming Tools at GameFable.online! Fortnite K/D Calculator, Roblox Robux Calc, Minecraft Seeds & more. No login required! #GamingTools #Fortnite #Roblox #Minecraft";
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function shareReddit() {
+            const text = "🎮 100 FREE Gaming Tools - GameFable.online\n\nCheck your Fortnite K/D, Calculate Roblox Robux, Find Minecraft Seeds & More.\n\nNo login. No ads spam. Just pure tools for USA & EU gamers.\n\ngamefable.online";
+            window.open(`https://www.reddit.com/submit?title=100%20Free%20Gaming%20Tools%20-%20GameFable.online&text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText('https://gamefable.online');
+            alert('Link copied to clipboard!');
+        }
+
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Initialize with all tools
+        showAllTools();
+
+        // Counter animation
+        function animateCounter(id, target, duration) {
+            const element = document.getElementById(id);
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current) + (id === 'stat-users' ? 'K+' : '');
+            }, 16);
+        }
+
+        setTimeout(() => {
+            animateCounter('stat-tools', 100, 2000);
+            animateCounter('stat-users', 50, 2000);
+        }, 2000);
+
+        // Create floating particles
+        function createParticles() {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>
