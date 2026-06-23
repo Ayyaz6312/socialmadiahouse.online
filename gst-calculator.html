@@ -442,7 +442,7 @@
             </div>
 
             <div class="form-group">
-                <label class="field-label" for="amount">Enter Amount (₹)</label>
+                <label class="field-label" for="amount">Enter Amount </label>
                 <input type="number" id="amount" placeholder="e.g. 1000">
             </div>
 
@@ -463,30 +463,30 @@
                 <div class="main-result">
                     <div>
                         <small>Total GST</small>
-                        <span>₹<span id="totalGst">0</span></span>
+                        <span> id="totalGst">0</span></span>
                     </div>
                     <div>
                         <small>Final Amount</small>
-                        <span>₹<span id="finalAmount">0</span></span>
+                        <span> id="finalAmount">0</span></span>
                     </div>
                 </div>
 
                 <table class="breakup-table">
                     <tr>
                         <td>Original Base Amount</td>
-                        <td id="baseAmount">₹0</td>
+                        <td id="baseAmount">0</td>
                     </tr>
                     <tr>
                         <td>CGST (<span id="cgstPercent">9</span>%)</td>
-                        <td id="cgstAmount">₹0</td>
+                        <td id="cgstAmount">0</td>
                     </tr>
                     <tr>
                         <td>SGST / UTGST (<span id="sgstPercent">9</span>%)</td>
-                        <td id="sgstAmount">₹0</td>
+                        <td id="sgstAmount">0</td>
                     </tr>
                     <tr>
                         <td><strong>Total Amount to Pay</strong></td>
-                        <td><strong id="totalFinal">₹0</strong></td>
+                        <td><strong id="totalFinal">0</strong></td>
                     </tr>
                 </table>
             </div>
@@ -564,12 +564,12 @@
 
             document.getElementById('totalGst').textContent = totalGst.toFixed(2);
             document.getElementById('finalAmount').textContent = finalAmt.toFixed(2);
-            document.getElementById('baseAmount').textContent = "₹" + baseAmt.toFixed(2);
+            document.getElementById('baseAmount').textContent = "" + baseAmt.toFixed(2);
             document.getElementById('cgstPercent').textContent = halfRate;
             document.getElementById('sgstPercent').textContent = halfRate;
-            document.getElementById('cgstAmount').textContent = "₹" + halfGst.toFixed(2);
-            document.getElementById('sgstAmount').textContent = "₹" + halfGst.toFixed(2);
-            document.getElementById('totalFinal').textContent = "₹" + finalAmt.toFixed(2);
+            document.getElementById('cgstAmount').textContent = "" + halfGst.toFixed(2);
+            document.getElementById('sgstAmount').textContent = "" + halfGst.toFixed(2);
+            document.getElementById('totalFinal').textContent = "" + finalAmt.toFixed(2);
             
             const resultBox = document.getElementById('resultBox');
             resultBox.style.display = 'none'; 
