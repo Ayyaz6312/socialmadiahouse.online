@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Tags -->
+    <title>Free GST Calculator Online – Add & Remove GST Instantly</title>
+    <meta name="description" content="Use our free GST Calculator to add or remove GST from any amount. Get instant and accurate GST calculations online without registration.">
+    <meta name="keywords" content="GST Calculator, Online GST Calculator, GST Tax Calculator, Add GST Calculator, Remove GST Calculator, Free GST Calculator">
+      <meta name="robots" content="index, follow">
+    <meta name="author" content="Toolshouse.online">
+    <link rel="canonical" href="https://www.toolshouse.online/gst-calculator.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Free Online Calculator – Fast & Accurate Calculator Tool">
+    <meta property="og:description" content="Use our free GST Calculator to add or remove GST from any amount. Get instant and accurate GST calculations online without registration.">
+    <meta property="og:url" content="https://www.toolshouse.online/gst-calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Toolshouse.online">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Online Calculator – Fast & Accurate Calculator Tool">
+    <meta name="twitter:description" content="Use our free online calculator for quick and accurate calculations.">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Free Online Calculator",
+        "url": "https://www.toolshouse.online/gst-calculator.html",
+        "description": "Use our free GST Calculator to add or remove GST from any amount. Get instant and accurate GST calculations online without registration.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Toolshouse.online",
+            "url": "https://www.toolshouse.online"
+        }
+    }
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2d3748;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NEW: NAVIGATION BAR STYLING --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-brand {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #4c51bf;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-home {
+            background: #f0f2f5;
+            color: #4a5568;
+        }
+
+        .btn-home:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-tools {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-tools:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+        /* --- NAVBAR ENDS --- */
+
+
+        .main-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 20px 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a202c;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .short-desc {
+            text-align: center;
+            color: #4a5568;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+
+        /* Glassmorphism Calculator Box */
+        .calculator-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .calculator-box:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Custom Radio Buttons (Toggle UI) */
+        .radio-group {
+            display: flex;
+            background: #f0f2f5;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 25px;
+        }
+
+        .radio-group label {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #718096;
+            transition: all 0.3s ease;
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+
+        .radio-group input[type="radio"]:checked + label {
+            background: #ffffff;
+            color: #4c51bf;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Input Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label.field-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-size: 0.95rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #ffffff;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+        }
+
+        /* Button */
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 700;
+            width: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        /* Result Box */
+        .result-box {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            padding: 20px;
+            border-radius: 16px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box h3 {
+            margin-top: 0;
+            color: #4c51bf;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .main-result {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .main-result div {
+            text-align: center;
+            flex: 1;
+        }
+
+        .main-result span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #2d3748;
+        }
+
+        .main-result small {
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        /* Table Styling */
+        .breakup-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .breakup-table th, .breakup-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .breakup-table th {
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .breakup-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .breakup-table tr:last-child td {
+            border-bottom: none;
+            color: #4c51bf;
+            font-size: 1.1rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .content-section h2 {
+            font-size: 1.3rem;
+            color: #1a202c;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-section h2::before {
+            content: '';
+            display: block;
+            width: 5px;
+            height: 24px;
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .features ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .features li {
+            background: #f7fafc;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .faq-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+
+        .internal-links ul {
+            padding-left: 0;
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .internal-links a {
+            background: #edf2f7;
+            color: #4c51bf;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .internal-links a:hover {
+            background: #4c51bf;
+            color: #ffffff;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .features ul { grid-template-columns: 1fr; }
+            .main-result { flex-direction: column; gap: 10px; }
+            .nav-brand { font-size: 1.1rem; }
+            .nav-btn { padding: 8px 14px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-brand">⚙️ Toolshouse</a>
+        <div class="nav-buttons">
+            <a href="www.toolshouse.online" class="nav-btn btn-home">🏠 Home</a>
+            <a href="#" class="nav-btn btn-tools">🧰 Tools</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- H1 Tag -->
+        <h1>Free GST Calculator Online</h1>
+        
+        <!-- Short Description -->
+        <p class="short-desc">Calculate GST instantly with our free GST Calculator. Add or remove GST from any amount and get accurate results in seconds.</p>
+
+        <!-- Calculator Tool -->
+        <div class="calculator-box">
+            <div class="radio-group">
+                <input type="radio" name="gstType" id="add" value="add" checked>
+                <label for="add">➕ Add GST</label>
+                
+                <input type="radio" name="gstType" id="remove" value="remove">
+                <label for="remove">➖ Remove GST</label>
+            </div>
+
+            <div class="form-group">
+                <label class="field-label" for="amount">Enter Amount (₹)</label>
+                <input type="number" id="amount" placeholder="e.g. 1000">
+            </div>
+
+            <div class="form-group">
+                <label class="field-label" for="gstRate">Select GST Rate</label>
+                <select id="gstRate">
+                    <option value="5">5%</option>
+                    <option value="12">12%</option>
+                    <option value="18" selected>18%</option>
+                    <option value="28">28%</option>
+                </select>
+            </div>
+
+            <button onclick="calculateGST()">Calculate GST</button>
+
+            <div class="result-box" id="resultBox">
+                <h3>📊 Calculation Breakup</h3>
+                <div class="main-result">
+                    <div>
+                        <small>Total GST</small>
+                        <span>₹<span id="totalGst">0</span></span>
+                    </div>
+                    <div>
+                        <small>Final Amount</small>
+                        <span>₹<span id="finalAmount">0</span></span>
+                    </div>
+                </div>
+
+                <table class="breakup-table">
+                    <tr>
+                        <td>Original Base Amount</td>
+                        <td id="baseAmount">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>CGST (<span id="cgstPercent">9</span>%)</td>
+                        <td id="cgstAmount">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>SGST / UTGST (<span id="sgstPercent">9</span>%)</td>
+                        <td id="sgstAmount">₹0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Amount to Pay</strong></td>
+                        <td><strong id="totalFinal">₹0</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="content-section features">
+            <h2>Features</h2>
+            <ul>
+                <li>✅ Add GST to amount</li>
+                <li>✅ Remove GST from amount</li>
+                <li>✅ Instant calculation</li>
+                <li>✅ Accurate results</li>
+                <li>✅ Mobile-friendly</li>
+                <li>✅ Free to use</li>
+            </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-section faq-section">
+            <h2>FAQs</h2>
+            <div class="faq-item">
+                <strong>What is a GST Calculator?</strong>
+                A GST Calculator helps calculate Goods and Services Tax on a product or service amount.
+            </div>
+            <div class="faq-item">
+                <strong>Can I add GST to an amount?</strong>
+                Yes, you can easily add GST and see the final price.
+            </div>
+            <div class="faq-item">
+                <strong>Can I remove GST from an amount?</strong>
+                Yes, the calculator can also extract GST from a GST-inclusive amount.
+            </div>
+        </div>
+
+        <!-- Internal Links -->
+        <div class="content-section internal-links">
+            <h2>Other Useful Calculators</h2>
+            <ul>
+                <li><a href="calculator">Calculator</a></li>
+                <li><a href="scientific-calculator.html">Scientific Calculator</a></li>
+                <li><a href="#">Percentage Calculator</a></li>
+                <li><a href="#">Tax Calculator</a></li>
+                <li><a href="#">Discount Calculator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Calculator Logic
+        function calculateGST() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const gstRate = parseFloat(document.getElementById('gstRate').value);
+            const gstType = document.querySelector('input[name="gstType"]:checked').value;
+            
+            if (isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+
+            let baseAmt, totalGst, finalAmt;
+
+            if (gstType === 'add') {
+                baseAmt = amount;
+                totalGst = (amount * gstRate) / 100;
+                finalAmt = amount + totalGst;
+            } else {
+                finalAmt = amount;
+                baseAmt = amount * (100 / (100 + gstRate));
+                totalGst = finalAmt - baseAmt;
+            }
+
+            const halfGst = totalGst / 2;
+            const halfRate = gstRate / 2;
+
+            document.getElementById('totalGst').textContent = totalGst.toFixed(2);
+            document.getElementById('finalAmount').textContent = finalAmt.toFixed(2);
+            document.getElementById('baseAmount').textContent = "₹" + baseAmt.toFixed(2);
+            document.getElementById('cgstPercent').textContent = halfRate;
+            document.getElementById('sgstPercent').textContent = halfRate;
+            document.getElementById('cgstAmount').textContent = "₹" + halfGst.toFixed(2);
+            document.getElementById('sgstAmount').textContent = "₹" + halfGst.toFixed(2);
+            document.getElementById('totalFinal').textContent = "₹" + finalAmt.toFixed(2);
+            
+            const resultBox = document.getElementById('resultBox');
+            resultBox.style.display = 'none'; 
+            void resultBox.offsetWidth; 
+            resultBox.style.display = 'block';
+        }
+
+        // Navbar Shadow Effect on Scroll
+        window.onscroll = function() {
+            const navbar = document.getElementById("navbar");
+            if (window.scrollY > 10) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        };
+    </script>
+
+</body>
+</html>
